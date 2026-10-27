@@ -57,7 +57,8 @@ export default function OutputDock({ stdout, printed, before, end, truncated, st
         <span className="text">
           {text.slice(cuts[0], cuts[1])}
           {fresh && (
-            <mark key={stepKey} className="fresh">
+            // Keys restart the highlight animation on every step; siblings need distinct ones.
+            <mark key={`${stepKey}:text`} className="fresh">
               {text.slice(cuts[1], cuts[2])}
             </mark>
           )}
@@ -65,7 +66,7 @@ export default function OutputDock({ stdout, printed, before, end, truncated, st
           {late && <span className="late">{text.slice(cuts[3], cuts[4])}</span>}
           {text.slice(cuts[4])}
           {line.freshBreak && (
-            <span key={stepKey} className="fresh-break" title="New line">
+            <span key={`${stepKey}:break`} className="fresh-break" title="New line">
               ↵
             </span>
           )}
