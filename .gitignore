@@ -1,0 +1,10 @@
+.superpowers/
+node_modules/
+.venv/
+__pycache__/
+target/
+web/dist/
+.runs/
+*.pyc
+.impeccable/
+engine/media/

@@ -1,0 +1,13 @@
+{
+  "reverse-linked-list": {"method": "reverseList", "inputs": {"head": "[1,2,3,4,5]"}},
+  "two-sum": {"method": "twoSum", "inputs": {"nums": "[2,7,11,15]", "target": "9"}},
+  "reverse-string": {"method": "reverseString", "inputs": {"s": "[\"h\",\"e\",\"l\",\"l\",\"o\"]"}},
+  "climbing-stairs": {"method": "climbStairs", "inputs": {"n": "5"}},
+  "merge-two-lists": {"method": "mergeTwoLists", "inputs": {"list1": "[1,2,4]", "list2": "[1,3,4]"}},
+  "valid-palindrome": {"method": "isPalindrome", "inputs": {"s": "\"racecar\""}},
+  "unique-paths": {"method": "uniquePaths", "inputs": {"m": "3", "n": "4"}},
+  "npe-bug": {"method": "reverseList", "inputs": {"head": "[1,2,3]"}},
+  "off-by-one": {"method": "sum", "inputs": {"nums": "[3,1,4]"}},
+  "doubly-and-set": {"method": "build", "inputs": {"values": "[4,8,4,15]"}},
+  "print-pyramid": {"method": "pyramid", "inputs": {"n": "3"}}
+}

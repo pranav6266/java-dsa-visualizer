@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Opens DSA Visualizer as an app window, starting its server first if it isn't running.
+# The server stops by itself a few minutes after the last window closes.
+set -uo pipefail
+
+ROOT="$(cd "$(dirname "$(readlink -f "$0")")/.." && pwd)"
+URL="http://localhost:8765"
+LOG="${XDG_STATE_HOME:-$HOME/.local/state}/dsaviz/server.log"
+
+# Launched from the app drawer, the session PATH may not include user-installed tools.
+export PATH="$HOME/.local/bin:$HOME/.local/share/mise/shims:$PATH"
+
+up() { curl -fsS -o /dev/null --max-time 1 "$URL/api/ping"; }
+
+if ! up; then
+  mkdir -p "$(dirname "$LOG")"
+  notify-send -a "DSA Visualizer" -t 4000 "Starting DSA Visualizer" "The window opens in a moment."
+  setsid "$ROOT/dsaviz" --idle-exit 3 >"$LOG" 2>&1 </dev/null &
+  # The very first start also builds the tracer and the web app, so allow up to two minutes.
+  for _ in $(seq 600); do
+    up && break
+    sleep 0.2
+  done
+  if ! up; then
+    notify-send -u critical -a "DSA Visualizer" "DSA Visualizer didn't start" "Details are in $LOG"
+    exit 1
+  fi
+fi
+
+exec omarchy-launch-or-focus-webapp "DSA Visualizer" "$URL"

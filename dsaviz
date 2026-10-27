@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Starts the Java DSA visualizer at http://localhost:8765 (pass --open to open the browser).
+# Builds the Java tracer and the web app first if they are missing or out of date.
+set -euo pipefail
+cd "$(dirname "$0")"
+
+if [[ ! -f tracer/target/tracer.jar ]] || [[ -n "$(find tracer/src tracer/pom.xml -newer tracer/target/tracer.jar -print -quit)" ]]; then
+  echo "Building the Java tracer..."
+  (cd tracer && mise exec -- mvn -q -B package)
+fi
+
+if [[ ! -f web/dist/index.html ]] || [[ -n "$(find web/src web/index.html web/public -newer web/dist/index.html -print -quit)" ]]; then
+  echo "Building the web app..."
+  (cd web && { [[ -d node_modules ]] || npm install --no-audit --no-fund; } && npm run build >/dev/null)
+fi
+
+cd engine
+exec uv run dsaviz "$@"

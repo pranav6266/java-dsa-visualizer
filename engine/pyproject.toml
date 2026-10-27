@@ -1,0 +1,25 @@
+[project]
+name = "dsaviz"
+version = "0.1.0"
+description = "Java DSA visualizer engine: trace analysis, Manim rendering, and web server"
+authors = [
+    { name = "pranav6266", email = "pranavchandrashekar5@gmail.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.159.1",
+    "manim>=0.22.0",
+    "uvicorn[standard]>=0.54.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.9.18,<0.10.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[project.scripts]
+dsaviz = "dsaviz.server:main"
